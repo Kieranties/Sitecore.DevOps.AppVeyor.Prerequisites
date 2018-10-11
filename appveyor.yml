@@ -1,0 +1,13 @@
+version: 0.0.{build}
+skip_branch_with_pr: true
+image: Visual Studio 2017
+environment:
+  LicenseFileUrl:
+    secure: tvDdT2DZMOgijvJd0Pvmuic+soMCi6cNrh+ndejvp0gb6vCTKWp3tbXNmoUi5kjzSptXn1A1k0B2ahH2qkfLA5m04gaVSEy3DxM+3yWZVgo=
+build_script:
+- ps: '.\environment-setup.ps1'
+after_build:
+- ps: nuget pack -Version $Env:APPVEYOR_BUILD_VERSION
+artifacts:
+- path: '*.nupkg'
+  name: NuGet
